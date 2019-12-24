@@ -127,8 +127,6 @@ void select_product(int *phase,data *database,cart_data *cart){
 				cart_index++;
 				break;
 			case 5:
-				printf("\033[1;1H");
-				printf("\033[2J");
 				for(i=0;i<cart_index;i++){
 					printf("name:%s\n",cart[i].product->name);
 					printf("num:%d\n",cart[i].num);
