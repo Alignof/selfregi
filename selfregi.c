@@ -156,7 +156,7 @@ void bill(int *phase,data *database,cart_data *cart,int cart_size){
 		printf("%s %dx%d\t|%d\n",cart[i].product->name,cart[i].product->price,cart[i].num, (cart[i].product->price)*(cart[i].num));
 		sum_price+=(cart[i].product->price)*(cart[i].num);
 	}
-	printf("--------------------------------------------------------------------\n");
+	printf("----------------------------------------------------------------------\n");
 	printf("sum:%d\n",sum_price);
 
 	printf("Will you buy it?[y/n]>>>");
