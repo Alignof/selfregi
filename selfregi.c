@@ -66,7 +66,7 @@ void welcome(int *phase){
 	(*phase)++;
 }
 
-void select_product(int *phase,data *database,cart_data *cart){
+int select_product(int *phase,data *database,cart_data *cart){
 	int i,j;
 	int id;
 	int key;
@@ -139,19 +139,53 @@ void select_product(int *phase,data *database,cart_data *cart){
 
 	while(getchar()!='\n');
 	(*phase)++;
+
+	return cart_index;
+}
+
+void bill(int *phase,data *database,cart_data *cart,int cart_size){
+	int i;
+	char yn;
+	int sum_price=0;
+
+	printf("\033[1;1H");
+	printf("\033[2J");
+	
+	printf("<<cart list>>\n");
+	for(i=0;i<cart_size;i++){
+		printf("%s %dx%d\t|%d\n",cart[i].product->name,cart[i].product->price,cart[i].num, (cart[i].product->price)*(cart[i].num));
+		sum_price+=(cart[i].product->price)*(cart[i].num);
+	}
+	printf("--------------------------------------------------------------------\n");
+	printf("sum:%d\n",sum_price);
+
+	printf("Will you buy it?[y/n]>>>");
+	scanf("%c",&yn);
+
+	if(yn=='y'){
+		printf("Thank you!\n");
+		(*phase)++;
+	}else{
+		(*phase)=1;
+	}
+
 }
 
 void phase_manager(data *database,cart_data *cart){
 	int phase=0;
+	int cart_size;
 	while(1){
 		switch(phase){
 			case 0:
 				welcome(&phase);
 				break;
 			case 1:
-				select_product(&phase,database,cart);
+				cart_size=select_product(&phase,database,cart);
 				break;
 			case 2:
+				bill(&phase,database,cart,cart_size);
+				break;
+			case 3:
 				return;
 				break;
 		}
