@@ -1,4 +1,5 @@
 #include<time.h>
+
 #include<stdio.h>
 #include<stdlib.h>
 #define DATASIZE 100
@@ -145,12 +146,16 @@ int select_product(int *phase,data *database,cart_data *cart){
 
 void bill(int *phase,data *database,cart_data *cart,int cart_size){
 	int i;
-	char yn;
 	int sum_price=0;
+	char yn;
+	time_t t;
+	FILE *fp;
+	char date[64];
+	char *filepath="data/sales_log.csv";
 
 	printf("\033[1;1H");
 	printf("\033[2J");
-	
+
 	printf("<<cart list>>\n");
 	for(i=0;i<cart_size;i++){
 		printf("%s %dx%d\t|%d\n",cart[i].product->name,cart[i].product->price,cart[i].num, (cart[i].product->price)*(cart[i].num));
@@ -163,6 +168,21 @@ void bill(int *phase,data *database,cart_data *cart,int cart_size){
 	scanf("%c",&yn);
 
 	if(yn=='y'){
+		//file open
+		if((fp=fopen(filepath,"a"))==NULL){
+			printf("file open failed.\n");
+			exit(EXIT_FAILURE);	
+		}
+
+		//write log
+		t=time(NULL);
+		strftime(date, sizeof(date), "%Y/%m/%d %a %H:%M:%S", localtime(&t));
+		fprintf(fp,"No.%d %s\n",1,date);
+		for(i=0;i<cart_size;i++){
+			fprintf(fp,"\t%s %s x %d\n",date,cart[i].product->name,cart[i].num);
+		}
+		fclose(fp);
+
 		printf("Thank you!\n");
 		(*phase)++;
 	}else{
