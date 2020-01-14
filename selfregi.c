@@ -176,7 +176,8 @@ void bill(int *phase,data *database,cart_data *cart,int cart_size){
 
 		//write log
 		t=time(NULL);
-		strftime(date, sizeof(date), "%Y/%m/%d %a %H:%M:%S", localtime(&t));
+		strftime(date,sizeof(date),"%Y/%m/%d %a %H:%M:%S", localtime(&t));
+		
 		fprintf(fp,"No.%d %s\n",1,date);
 		for(i=0;i<cart_size;i++){
 			fprintf(fp,"\t%s %s x %d\n",date,cart[i].product->name,cart[i].num);
