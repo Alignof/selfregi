@@ -1,3 +1,11 @@
+/**
+ * @date		2019 12/24-
+ * @author		Takana Norimasa <j17423@kisarazu.kosen-ac.jp> 
+ * @brief		self register
+ * @repository		https://github.com/Takana-Norimasa/selfregi
+ * @license		https://opensource.org/licenses/mit-license.php MIT License
+ */ 
+
 #include<time.h>
 #include<stdio.h>
 #include<stdlib.h>
