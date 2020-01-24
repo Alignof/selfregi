@@ -1,6 +1,7 @@
 #include<time.h>
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 #define DATASIZE 100
 
 typedef struct{
@@ -86,6 +87,34 @@ void welcome(){
 	while(getchar()!='\n');
 }
 
+void modify(data *database,int id){
+	int tmp;
+	char key;
+	char name_tmp[100];
+	
+	printf("What do you want to modify?[N:name P:price S:stock]>>>");
+	scanf("%c",&key);
+
+	switch(key){
+		case 'N':
+			printf("Enter new name[now:%s]>>>",database[id].name);
+			scanf("%s",name_tmp);
+			strcpy(database[id].name,name_tmp);
+			break;
+		case 'P':
+			printf("Enter new price[now:%d]>>>",database[id].price);
+			scanf("%d",&tmp);
+			database[id].price=tmp;
+			break;
+		case 'S':
+			printf("Enter new stock[now:%d]>>>",database[id].stock);
+			scanf("%d",&tmp);
+			database[id].stock=tmp;
+			break;
+	}
+	printf("Modified.\n");
+}
+
 void product_management(data *database){
 	int i,j;
 	int id;
@@ -123,7 +152,7 @@ void product_management(data *database){
 		}
 
 		printf("\n\n");
-		printf("back page:1 exit:2 next page:3\n");
+		printf("back page:1 exit:2 next page:3 modify data:4\n");
 		printf("[ <-prev:1 exit:2 next:3-> ]>>>");
 		scanf("%d",&key);
 
@@ -137,10 +166,16 @@ void product_management(data *database){
 			case 3:
 				if(page<DATASIZE/30) page++;
 				break;
+			case 4:
+				printf("Input product ID>>>");
+				scanf("%d",&id);
+				modify(database,id);
+				break;
 		}
 		if(is_exit) break;
 	}
 
+	printf("Thank you.\n");
 	//while(getchar()!='\n');
 }
 
@@ -151,25 +186,11 @@ int main(void){
 	cart_data cart[DATASIZE];
 
 	setup(database);
-	
 	welcome();
 
-	while(1){
-		printf("select mode>>");
-		scanf("%d",&mode);
+	product_management(database);
 
-		switch(mode){
-			case 0:
-				exit(1);
-				break;
-			case 1:
-				product_management(database);
-				break;
-		}
-	
-	}
-
-	data_file();
+	data_write(database);
 	return 0;
 }
 
