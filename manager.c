@@ -93,6 +93,7 @@ void modify(data *database,int id){
 	char name_tmp[100];
 	
 	printf("What do you want to modify?[N:name P:price S:stock]>>>");
+	getchar();
 	scanf("%c",&key);
 
 	switch(key){
@@ -169,7 +170,7 @@ void product_management(data *database){
 			case 4:
 				printf("Input product ID>>>");
 				scanf("%d",&id);
-				modify(database,id);
+				modify(database,id-1);
 				break;
 		}
 		if(is_exit) break;
