@@ -177,7 +177,6 @@ void product_management(data *database){
 	}
 
 	printf("Thank you.\n");
-	//while(getchar()!='\n');
 }
 
 int main(void){
