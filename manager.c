@@ -193,4 +193,3 @@ int main(void){
 	data_write(database);
 	return 0;
 }
-
