@@ -2,29 +2,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include"struct_data.h"
 #define DATASIZE 100
-
-typedef struct{
-	int ID;
-	int month;
-	int date;
-	int price;
-	int stock;
-	char name[30];
-}data;
-
-typedef struct{
-	int Noguchi;
-	int Higuchi;
-	int Yukichi;
-	//coins[6]={500,100,50,10,5,1};
-	int coins[6];
-}moneys;
-
-typedef struct{
-	int num;
-	data *product;
-}cart_data;
 
 void data_read(data *database){
 	int i;
@@ -68,16 +47,6 @@ void data_write(data *database){
 	fclose(fp);
 }
 
-void set_disp(data *database){
-	printf("\033[1;1H");
-	printf("\033[2J");
-}
-
-void setup(data *database){
-	data_read(database);
-	set_disp(database);
-}
-
 void welcome(){
 	printf("\033[1;1H");
 	printf("\033[2J");
@@ -86,6 +55,12 @@ void welcome(){
 	printf("return Enter key>");
 	while(getchar()!='\n');
 }
+
+void setup(data *database){
+	data_read(database);
+	set_disp(database);
+}
+
 
 void modify(data *database,int id){
 	int tmp;
