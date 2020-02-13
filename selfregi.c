@@ -65,7 +65,7 @@ int select_product(int *phase,data *database,cart_data *cart){
 		printf("\033[1;1H");
 		printf("\033[2J");
 
-		count=30*page;
+		count=row*column*page;
 		for(i=0;i<row;i++){
 			for(j=0;j<column;j++){
 				if(count<DATASIZE){
@@ -98,7 +98,7 @@ int select_product(int *phase,data *database,cart_data *cart){
 				is_exit=1;
 				break;
 			case 3:
-				if(page<DATASIZE/30) page++;
+				if(page<DATASIZE/(row*column)) page++;
 				break;
 			case 4:
 				printf("Input product ID>>>");

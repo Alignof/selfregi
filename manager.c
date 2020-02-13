@@ -97,17 +97,18 @@ void product_management(data *database){
 	int key;
 	int page=0;
 	int count=0;
+	int discount_value=0;
 	int point_x[6]={1,10,20,30,40,50};
 	int point_y[5]={1,30,60,90,120};
 	char is_exit=0;
-	const int row=6;
+	const int row=4;
 	const int column=5;
 
 	while(1){
 		printf("\033[1;1H");
 		printf("\033[2J");
 
-		count=30*page;
+		count=row*column*page;
 		for(i=0;i<row;i++){
 			for(j=0;j<column;j++){
 				if(count<DATASIZE){
@@ -128,7 +129,7 @@ void product_management(data *database){
 		}
 
 		printf("\n\n");
-		printf("back page:1 exit:2 next page:3 modify data:4\n");
+		printf("back page:1 exit:2 next page:3 modify data:4 sale:5\n");
 		printf("[ <-prev:1 exit:2 next:3-> ]>>>");
 		scanf("%d",&key);
 
@@ -140,12 +141,19 @@ void product_management(data *database){
 				is_exit=1;
 				break;
 			case 3:
-				if(page<DATASIZE/30) page++;
+				if(page<DATASIZE/(row*column)) page++;
 				break;
 			case 4:
 				printf("Input product ID>>>");
 				scanf("%d",&id);
 				modify(database,id-1);
+				break;
+			case 5:
+				printf("What discount[n\%OFF]>>>");
+				scanf("%d",&discount_value);
+				for(i=0;i<DATASIZE;i++){
+					database[i].price*=(1-(discount_value/100));
+				}
 				break;
 		}
 		if(is_exit) break;
