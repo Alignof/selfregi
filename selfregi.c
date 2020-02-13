@@ -58,7 +58,7 @@ int select_product(int *phase,data *database,cart_data *cart){
 	int point_x[6]={1,10,20,30,40,50};
 	int point_y[5]={1,30,60,90,120};
 	char is_exit=0;
-	const int row=6;
+	const int row=4;
 	const int column=5;
 
 	while(1){
@@ -110,8 +110,7 @@ int select_product(int *phase,data *database,cart_data *cart){
 				break;
 			case 5:
 				for(i=0;i<cart_index;i++){
-					printf("name:%s\n",cart[i].product->name);
-					printf("num:%d\n",cart[i].num);
+					printf("name:%s x%d\n",cart[i].product->name,cart[i].num);
 				}
 				while(getchar()!='\n');
 				break;
@@ -139,11 +138,11 @@ void bill(int *phase,data *database,cart_data *cart,int cart_size){
 
 	printf("<<cart list>>\n");
 	for(i=0;i<cart_size;i++){
-		printf("%s %dx%d\t|%d\n",cart[i].product->name,cart[i].product->price,cart[i].num, (cart[i].product->price)*(cart[i].num));
+		printf("%s %d x%d\t|%d\n",cart[i].product->name,cart[i].product->price,cart[i].num, (cart[i].product->price)*(cart[i].num));
 		sum_price+=(cart[i].product->price)*(cart[i].num);
 	}
 	printf("----------------------------------------------------------------------\n");
-	printf("sum:%d\n",sum_price);
+	printf("\t  sum\t|%d\n",sum_price);
 
 	printf("Will you buy it?[y/n]>>>");
 	scanf("%c",&yn);
