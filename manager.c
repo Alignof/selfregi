@@ -152,7 +152,9 @@ void product_management(data *database){
 				printf("What discount[n\%OFF]>>>");
 				scanf("%d",&discount_value);
 				for(i=0;i<DATASIZE;i++){
+					printf("before:%d\n",database[i].price);
 					database[i].price*=(1-(discount_value/100));
+					printf("after:%d\n",database[i].price);
 				}
 				break;
 		}
