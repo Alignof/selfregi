@@ -128,9 +128,12 @@ void product_management(data *database){
 		}
 
 		printf("\n\n");
-		printf("back page:1 exit:2 next page:3 modify data:4 sale:5\n");
-		printf("[ <-prev:1 exit:2 next:3-> ]>>>");
-		scanf("%d",&key);
+
+		do{
+			printf("back page:1 exit:2 next page:3 add product to cart:4 show cart:5\n");
+			printf("[ <-prev:1 exit:2 next:3-> ]>>>");
+			scanf("%d",&key);
+		}while(!(key<=5));
 
 		switch(key){
 			case 1:
