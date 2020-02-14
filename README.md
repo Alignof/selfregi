@@ -64,6 +64,10 @@ $ make clean
 ```
 と実行する。
 
+## LICENSE
+githubで公開するためにライセンスを付与した。  
+今回はMIT Licenseを採用した。
+
 # 主な機能
 
 
