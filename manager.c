@@ -32,7 +32,12 @@ void welcome(){
 	printf("\033[1;1H");
 	printf("\033[2J");
 	printf("Welcome to management console.\n");
-	//show some alias
+	printf("You can change stock data.\n");
+	printf("\n");
+	printf("author		Takana Norimasa <j17423@kisarazu.kosen-ac.jp>\n");
+	printf("repository	https://github.com/Takana-Norimasa/selfregi\n");
+	printf("license		https://opensource.org/licenses/mit-license.php MIT License\n");
+	printf("\n");
 	printf("return Enter key>");
 	while(getchar()!='\n');
 }
