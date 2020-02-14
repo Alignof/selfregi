@@ -66,6 +66,13 @@ LICENSE  README.md  a.out  data  manager  manager.c  selfregi  selfregi.c  struc
 
 ## create_data.pl
 適当な商品データをランダムに生成するperlスクリプト。  
+商品データとID、紙幣の数をリセットしたい場合は、
+
+```terminal
+$ perl data/create_data.pl > data/product_data.csv
+```
+
+とする。
 
 ## Makefile
 実行ファイルを生成するMakefile。
