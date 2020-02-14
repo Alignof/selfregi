@@ -25,8 +25,11 @@ void data_read(data *database,moneys *money,int *session_id){
 		printf("file open failed.\n"); exit(EXIT_FAILURE);	
 	}
 
+	printf("before data read\n");
 	fscanf(fp,"%d\n",session_id);
-	fscanf(fp,"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",money->Yukichi,money->Higuchi,money->Noguchi,money->coins[0],money->coins[1],money->coins[2],money->coins[3],money->coins[4],money->coins[5]);
+	printf("session_id read\n");
+	fscanf(fp,"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",&money->Yukichi,&money->Higuchi,&money->Noguchi,&money->coins[0],&money->coins[1],&money->coins[2],&money->coins[3],&money->coins[4],&money->coins[5]);
+	printf("moneys read\n");
 	
 	for(i=0;i<DATASIZE;i++){
 		fscanf(fp,"%d,%d,%d,%d,%d,%s\n",&database[i].ID,&database[i].month,&database[i].date,&database[i].price,&database[i].stock,database[i].name);
@@ -159,7 +162,7 @@ void bill(int *phase, data *database, cart_data *cart, int cart_size, moneys *mo
 		t=time(NULL);
 		strftime(date,sizeof(date),"%Y/%m/%d %a %H:%M:%S", localtime(&t));
 		
-		fprintf(fp,"No.%d %s\n",1,date);
+		fprintf(fp,"No.%d %s\n",*session_id,date);
 		for(i=0;i<cart_size;i++){
 			fprintf(fp,"\t%s %s x %d\n",date,cart[i].product->name,cart[i].num);
 		}
