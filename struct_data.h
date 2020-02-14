@@ -1,4 +1,8 @@
 #ifndef HEADERFILE
+#define DATASIZE 100
+#endif
+
+#ifndef HEADERFILE
 #define HEADERFILE
 
 typedef struct{

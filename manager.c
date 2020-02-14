@@ -3,7 +3,6 @@
 #include<stdlib.h>
 #include<string.h>
 #include"struct_data.h"
-#define DATASIZE 100
 
 void data_write(data *database,moneys *money,int *session_id){
 	int i;

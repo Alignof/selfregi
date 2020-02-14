@@ -10,7 +10,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include"struct_data.h"
-#define DATASIZE 100
 
 void welcome(int *phase){
 	printf("\033[1;1H");
