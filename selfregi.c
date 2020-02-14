@@ -1,5 +1,5 @@
 /**
- * @date		2019 12/24-
+ * @date		2019 12/24 - 2020 02/14
  * @author		Takana Norimasa <j17423@kisarazu.kosen-ac.jp> 
  * @brief		self register
  * @repository		https://github.com/Takana-Norimasa/selfregi
@@ -12,7 +12,7 @@
 #include"struct_data.h"
 #define DATASIZE 100
 
-void data_read(data *database){
+void data_read(data *database,moneys *money,int *session_id){
 	int i;
 	int id;
 	int key=0;
@@ -25,6 +25,9 @@ void data_read(data *database){
 		printf("file open failed.\n"); exit(EXIT_FAILURE);	
 	}
 
+	fscanf(fp,"%d\n",session_id);
+	fscanf(fp,"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",money->Yukichi,money->Higuchi,money->Noguchi,money->coins[0],money->coins[1],money->coins[2],money->coins[3],money->coins[4],money->coins[5]);
+	
 	for(i=0;i<DATASIZE;i++){
 		fscanf(fp,"%d,%d,%d,%d,%d,%s\n",&database[i].ID,&database[i].month,&database[i].date,&database[i].price,&database[i].stock,database[i].name);
 	}
@@ -42,8 +45,8 @@ void welcome(int *phase){
 	(*phase)++;
 }
 
-void setup(data *database,moneys money,int *session_id){
-	data_read(database);
+void setup(data *database,moneys *money,int *session_id){
+	data_read(database,money,session_id);
 }
 
 int select_product(int *phase,data *database,cart_data *cart){
@@ -122,7 +125,7 @@ int select_product(int *phase,data *database,cart_data *cart){
 	return cart_index;
 }
 
-void bill(int *phase,data *database,cart_data *cart,int cart_size){
+void bill(int *phase, data *database, cart_data *cart, int cart_size, moneys *money,int *session_id){
 	int i;
 	int sum_price=0;
 	char yn;
@@ -170,7 +173,7 @@ void bill(int *phase,data *database,cart_data *cart,int cart_size){
 
 }
 
-void phase_manager(data *database,cart_data *cart){
+void phase_manager(data *database,cart_data *cart,moneys *money,int *session_id){
 	int phase=0;
 	int cart_size;
 	while(1){
@@ -182,7 +185,7 @@ void phase_manager(data *database,cart_data *cart){
 				cart_size=select_product(&phase,database,cart);
 				break;
 			case 2:
-				bill(&phase,database,cart,cart_size);
+				bill(&phase,database,cart,cart_size,money,session_id);
 				break;
 			case 3:
 				return;
@@ -194,11 +197,12 @@ void phase_manager(data *database,cart_data *cart){
 int main(void){
 	int session_id;
 	time_t now;
+	moneys money;
 	data database[DATASIZE];
 	cart_data cart[DATASIZE];
 
-	setup(database,&moneys,&session_id);
-	phase_manager(database,cart);
+	setup(database,&money,&session_id);
+	phase_manager(database,cart,&money,&session_id);
 
 	return 0;
 }

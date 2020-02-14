@@ -58,7 +58,6 @@ void welcome(){
 
 void setup(data *database){
 	data_read(database);
-	set_disp(database);
 }
 
 
