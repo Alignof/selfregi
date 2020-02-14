@@ -2,5 +2,8 @@
 !*/
 !*.*
 
+!Makefile
+!LICENSE
+
 *.out
 *.bkup

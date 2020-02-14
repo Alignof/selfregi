@@ -3,7 +3,8 @@ use 5.24.1;
 my $product;
 my @list='a'..'z';
 
-say 0;
+say 1;
+say "10,20,30,40,90,60,70,60,30";
 
 for (1..100){
 	$product="";

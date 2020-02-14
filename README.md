@@ -34,7 +34,7 @@ LICENSE  README.md  a.out  data  manager  manager.c  selfregi  selfregi.c  struc
 ├── Makefile
 ├── README.md
 ├── data
-│   ├── create.pl
+│   ├── create_data.pl
 │   ├── product_data.csv
 │   └── sales_log.csv
 ├── manager.c
@@ -64,7 +64,7 @@ LICENSE  README.md  a.out  data  manager  manager.c  selfregi  selfregi.c  struc
 ## product_data.csv
 商品の名前や値段のデータが格納されている。  
 
-## create.pl
+## create_data.pl
 適当な商品データをランダムに生成するperlスクリプト。  
 
 ## Makefile
