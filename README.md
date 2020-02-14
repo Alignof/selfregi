@@ -9,9 +9,21 @@
 - [x] 必要によってセキュリティ関連捜査等のため、販売明細を販売時間、販売明細件(伝票番号、処理番号等を用いて)ごとに出力ができるか。 
 
 # 実行するには
+まず、このリポジトリをcloneする。
 
 ```terminal
 $ git clone https://github.com/Takana-Norimasa/selfregi.git
+```
+Makefileを用いてコンパイルする。
+```terminal
+$ make
+```
+
+以下にmanagerとselfregiという実行ファイルが生成される。
+
+```terminal
+$ ls
+LICENSE  README.md  a.out  data  manager  manager.c  selfregi  selfregi.c  struct_data.h
 ```
 
 # 全体の構成
