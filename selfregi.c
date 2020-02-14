@@ -22,8 +22,7 @@ void data_read(data *database){
 	char *filepath="data/product_data.csv";
 
 	if((fp=fopen(filepath,"r"))==NULL){
-		printf("file open failed.\n");
-		exit(EXIT_FAILURE);	
+		printf("file open failed.\n"); exit(EXIT_FAILURE);	
 	}
 
 	for(i=0;i<DATASIZE;i++){
@@ -43,9 +42,8 @@ void welcome(int *phase){
 	(*phase)++;
 }
 
-void setup(data *database){
+void setup(data *database,moneys money,int *session_id){
 	data_read(database);
-	set_disp(database);
 }
 
 int select_product(int *phase,data *database,cart_data *cart){
@@ -194,11 +192,12 @@ void phase_manager(data *database,cart_data *cart){
 }
 
 int main(void){
+	int session_id;
 	time_t now;
 	data database[DATASIZE];
 	cart_data cart[DATASIZE];
 
-	setup(database);
+	setup(database,&moneys,&session_id);
 	phase_manager(database,cart);
 
 	return 0;

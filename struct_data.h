@@ -23,9 +23,4 @@ typedef struct{
 	data *product;
 }cart_data;
 
-void set_disp(data *database){
-	printf("\033[1;1H");
-	printf("\033[2J");
-}
-
 #endif
