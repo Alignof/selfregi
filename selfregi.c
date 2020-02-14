@@ -130,6 +130,7 @@ int select_product(int *phase,data *database,cart_data *cart){
 
 void bill(int *phase, data *database, cart_data *cart, int cart_size, moneys *money,int *session_id){
 	int i;
+	int tmp_price=0;
 	int sum_price=0;
 	char yn;
 	time_t t;
@@ -153,6 +154,30 @@ void bill(int *phase, data *database, cart_data *cart, int cart_size, moneys *mo
 	scanf("%c",&yn);
 
 	if(yn=='y'){
+		tmp_price=sum_price;
+
+		//bill
+		money->Yukichi-=tmp_price/10000;
+		tmp_price-=(tmp_price/10000)*10000;
+		money->Higuchi-=tmp_price/5000;
+		tmp_price-=(tmp_price/5000)*5000;
+		money->Noguchi-=tmp_price/1000;
+		tmp_price-=(tmp_price/1000)*1000;
+
+		//coin
+		money->coins[0]-=tmp_price/500;
+		tmp_price-=(tmp_price/500)*500;
+		money->coins[1]-=tmp_price/100;
+		tmp_price-=(tmp_price/100)*100;
+		money->coins[2]-=tmp_price/50;
+		tmp_price-=(tmp_price/50)*50;
+		money->coins[3]-=tmp_price/10;
+		tmp_price-=(tmp_price/10)*10;
+		money->coins[4]-=tmp_price/5;
+		tmp_price-=(tmp_price/5)*5;
+		money->coins[5]-=tmp_price/1;
+		tmp_price-=(tmp_price/1)*1;
+
 		//sales_log open
 		if((fp=fopen(sales_log,"a"))==NULL){
 			printf("file open failed.\n");
