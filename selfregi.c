@@ -25,11 +25,8 @@ void data_read(data *database,moneys *money,int *session_id){
 		printf("file open failed.\n"); exit(EXIT_FAILURE);	
 	}
 
-	printf("before data read\n");
 	fscanf(fp,"%d\n",session_id);
-	printf("session_id read\n");
-	fscanf(fp,"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",&money->Yukichi,&money->Higuchi,&money->Noguchi,&money->coins[0],&money->coins[1],&money->coins[2],&money->coins[3],&money->coins[4],&money->coins[5]);
-	printf("moneys read\n");
+	fscanf(fp,"%d,%d,%d,%d,%d,%d,%d,%d,%d\n",&money->Yukichi,&money->Higuchi,&money->Noguchi,&money->coins[0],&money->coins[1],&money->coins[2],&money->coins[3],&money->coins[4],&money->coins[5]);
 	
 	for(i=0;i<DATASIZE;i++){
 		fscanf(fp,"%d,%d,%d,%d,%d,%s\n",&database[i].ID,&database[i].month,&database[i].date,&database[i].price,&database[i].stock,database[i].name);
@@ -105,8 +102,11 @@ int select_product(int *phase,data *database,cart_data *cart){
 				if(page<DATASIZE/(row*column)) page++;
 				break;
 			case 4:
-				printf("Input product ID>>>");
-				scanf("%d",&id);
+				do{
+					printf("Input product ID>>>");
+					scanf("%d",&id);
+				}while(!(id<DATASIZE));
+
 				cart[cart_index].product=&database[id];
 				printf("How many do you buy it?>>>");
 				scanf("%d",&(cart[cart_index].num));
@@ -135,7 +135,8 @@ void bill(int *phase, data *database, cart_data *cart, int cart_size, moneys *mo
 	time_t t;
 	FILE *fp;
 	char date[64];
-	char *filepath="data/sales_log.csv";
+	char *sales_log="data/sales_log.csv";
+	char *product_data="data/product_data.csv";
 
 	printf("\033[1;1H");
 	printf("\033[2J");
@@ -146,19 +147,18 @@ void bill(int *phase, data *database, cart_data *cart, int cart_size, moneys *mo
 		sum_price+=(cart[i].product->price)*(cart[i].num);
 	}
 	printf("----------------------------------------------------------------------\n");
-	printf("\t  sum\t|%d\n",sum_price);
+	printf("\t   sum\t|%d\n",sum_price);
 
 	printf("Will you buy it?[y/n]>>>");
 	scanf("%c",&yn);
 
 	if(yn=='y'){
-		//file open
-		if((fp=fopen(filepath,"a"))==NULL){
+		//sales_log open
+		if((fp=fopen(sales_log,"a"))==NULL){
 			printf("file open failed.\n");
 			exit(EXIT_FAILURE);	
 		}
 
-		//write log
 		t=time(NULL);
 		strftime(date,sizeof(date),"%Y/%m/%d %a %H:%M:%S", localtime(&t));
 		
@@ -166,6 +166,21 @@ void bill(int *phase, data *database, cart_data *cart, int cart_size, moneys *mo
 		for(i=0;i<cart_size;i++){
 			fprintf(fp,"\t%s %s x %d\n",date,cart[i].product->name,cart[i].num);
 		}
+		fclose(fp);
+
+		//product_data open
+		if((fp=fopen(product_data,"w+"))==NULL){
+			printf("file open failed.\n");
+			exit(EXIT_FAILURE);	
+		}
+		
+		fprintf(fp,"%d\n",*session_id+1);
+		fprintf(fp,"%d,%d,%d,%d,%d,%d,%d,%d,%d\n",money->Yukichi,money->Higuchi,money->Noguchi,money->coins[0],money->coins[1],money->coins[2],money->coins[3],money->coins[4],money->coins[5]);
+		
+		for(i=0;i<DATASIZE;i++){
+			fprintf(fp,"%d,%d,%d,%d,%d,%s\n",database[i].ID,database[i].month,database[i].date,database[i].price,database[i].stock,database[i].name);
+		}
+		
 		fclose(fp);
 
 		printf("Thank you!\n");
